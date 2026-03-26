@@ -13,6 +13,9 @@ env/
 .env.*
 *.local
 
+#credentials
+credentials.json
+
 # Tool caches and test artifacts
 .pytest_cache/
 .mypy_cache/

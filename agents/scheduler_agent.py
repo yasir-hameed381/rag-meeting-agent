@@ -6,19 +6,19 @@ from tools.calendar.availability import (
 from tools.calendar.booking import book_meeting
 
 
-def handle_meeting_request(user_input: str, email="rh6666358@gmail.com"):
+def handle_meeting_request(user_input: str):
     print(f"Received meeting request: {user_input}")
-    start, end = parse_time(user_input)
+    start_time, end_time = parse_time(user_input)
 
-    print(f"Parsed time: {start} to {end}")
-    if not start:
+    print(f"Parsed time: {start_time} to {end_time}")
+    if not start_time or not end_time:
         return "❌ I couldn't understand the time. Please specify like 'tomorrow 3pm'."
 
-    if is_slot_available(start, end):
-        link = book_meeting(start, end, email)
+    if is_slot_available(start_time, end_time):
+        link = book_meeting(start_time, end_time)
         return f"✅ Meeting booked successfully!\n{link}"
 
-    suggestions = suggest_slots(start)
+    suggestions = suggest_slots(start_time)
 
     if suggestions:
         return (

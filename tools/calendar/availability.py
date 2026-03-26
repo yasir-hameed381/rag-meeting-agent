@@ -1,7 +1,8 @@
 from datetime import timedelta
+from config.settings import CALENDAR_EMAIL
 from .client import get_calendar_service
 
-CALENDAR_ID = "primary"
+CALENDAR_ID = CALENDAR_EMAIL
 
 
 def is_slot_available(start_time, end_time):

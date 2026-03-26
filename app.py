@@ -5,6 +5,7 @@ from agents.scheduler_agent import handle_meeting_request
 from rag.chain import build_retrieval_chain
 from agents.graph import agent
 from langchain_core.messages import HumanMessage
+from langchain_core.runnables import RunnableConfig
 
 app = FastAPI()
 
@@ -40,12 +41,13 @@ def schedule_meeting(request: QueryRequest):
 
 
 @app.post("/chat")
-def chat(req: QueryRequest):
+def chat(request: QueryRequest):
+    config : RunnableConfig = {"configurable": {"thread_id": 1}}
     response = agent.invoke({
         "messages": [
-             HumanMessage(content=req.question)
+             HumanMessage(content=request.question)
         ]
-    })
+    }, config=config)
 
     return {
         "response": response["messages"][-1].content

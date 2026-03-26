@@ -1,6 +1,7 @@
 from .client import get_calendar_service
+from config.settings import CALENDAR_EMAIL
 
-def book_meeting(start_time, end_time, email):
+def book_meeting(start_time, end_time):
     service = get_calendar_service()
 
     event = {
@@ -17,7 +18,7 @@ def book_meeting(start_time, end_time, email):
     }
 
     event = service.events().insert(
-        calendarId="rh6666358@gmail.com",
+        calendarId=CALENDAR_EMAIL,
         body=event
     ).execute()
 

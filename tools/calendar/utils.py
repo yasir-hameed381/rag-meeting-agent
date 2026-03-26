@@ -5,9 +5,9 @@ from zoneinfo import ZoneInfo
 DEFAULT_TZ = ZoneInfo("Asia/Karachi")
 
 
-def parse_time(user_input: str):
+def parse_time(time_str: str):
     dt = dateparser.parse(
-        user_input,
+        time_str,
         settings={
             "PREFER_DATES_FROM": "future",
             "TIMEZONE": "Asia/Karachi",
@@ -18,7 +18,7 @@ def parse_time(user_input: str):
     if not dt:
         return None, None  
 
-    dt = dt.astimezone(DEFAULT_TZ)
-    end = dt + timedelta(minutes=30)
+    start_time = dt.astimezone(DEFAULT_TZ)
+    end_time = start_time + timedelta(minutes=30)
 
-    return dt, end
+    return start_time, end_time
