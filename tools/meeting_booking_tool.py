@@ -1,8 +1,9 @@
 from langchain.tools import tool
-from tools.calendar.booking import book_meeting
+
 from tools.calendar.availability import is_slot_available, suggest_slots
-from tools.calendar.utils import DEFAULT_TZ
+from tools.calendar.booking import book_meeting
 from tools.calendar.utils import parse_time
+
 
 @tool
 def schedule_meeting_tool(time_str: str) -> str:
@@ -18,7 +19,7 @@ def schedule_meeting_tool(time_str: str) -> str:
     if is_slot_available(start_time, end_time):
         link = book_meeting(start_time, end_time)
         return f"✅ Meeting booked at {start_time.strftime('%I:%M %p')}.\n{link}"
-    
+
     suggestions = suggest_slots(start_time)
     if suggestions:
         return (

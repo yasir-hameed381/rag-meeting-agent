@@ -1,9 +1,6 @@
-from tools.calendar.utils import parse_time
-from tools.calendar.availability import (
-    is_slot_available,
-    suggest_slots
-)
+from tools.calendar.availability import is_slot_available, suggest_slots
 from tools.calendar.booking import book_meeting
+from tools.calendar.utils import parse_time
 
 
 def handle_meeting_request(user_input: str):

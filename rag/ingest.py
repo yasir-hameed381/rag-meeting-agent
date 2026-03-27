@@ -1,8 +1,9 @@
-from langchain_community.document_loaders import PyPDFLoader, TextLoader
+from langchain_community.document_loaders import PyPDFLoader, TextLoader, WebBaseLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import os
 
 DATA_PATH = "data/raw/"
+WEB_SOURCES = ["https://www.technovez.com/"]
 
 def load_documents():
     docs = []
@@ -18,6 +19,14 @@ def load_documents():
             continue
 
         docs.extend(loader.load())
+
+    # Also ingest website content for company context.
+    for url in WEB_SOURCES:
+        try:
+            web_loader = WebBaseLoader(url)
+            docs.extend(web_loader.load())
+        except Exception as exc:
+            print(f"Skipping web source {url}: {exc}")
 
     return docs
 

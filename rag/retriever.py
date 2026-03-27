@@ -9,7 +9,8 @@ def create_vectorstore():
     chunks = get_chunks()
     if not chunks:
         raise ValueError(
-            "No document found in data/raw. Add atleast one .pdf or .txt file."
+            "No content found in data/raw or configured web sources. "
+            "Add at least one .pdf/.txt file or verify website loading."
             "before building the vectorstore."
         )
     embeddings = MistralAIEmbeddings()

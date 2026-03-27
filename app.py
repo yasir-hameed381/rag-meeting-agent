@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from pydantic import BaseModel
-from agents.scheduler_agent import handle_meeting_request
+from agents.meeting_request_handler import handle_meeting_request
 from rag.chain import build_retrieval_chain
-from agents.graph import agent
+from agents.meeting_booking_agent import agent
 from langchain_core.messages import HumanMessage
 from langchain_core.runnables import RunnableConfig
 
@@ -42,12 +42,11 @@ def schedule_meeting(request: QueryRequest):
 
 @app.post("/chat")
 def chat(request: QueryRequest):
-    config : RunnableConfig = {"configurable": {"thread_id": 1}}
     response = agent.invoke({
         "messages": [
              HumanMessage(content=request.question)
         ]
-    }, config=config)
+    })
 
     return {
         "response": response["messages"][-1].content
